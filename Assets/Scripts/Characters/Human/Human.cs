@@ -181,18 +181,7 @@ namespace Characters
 
         public Ray GetAimRayAfterHumanCheap()
         {
-            Vector3 aimPosition = Input.mousePosition;
-
-            // For TPS and FPS camera modes, ignore the cursor position and raycast to the screen center
-            switch (((InGameCamera)SceneLoader.CurrentCamera).CurrentCameraMode)
-            {
-                case CameraInputMode.TPS:
-                case CameraInputMode.FPS:
-                    aimPosition = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
-                    break;
-            }
-
-            Ray ray = SceneLoader.CurrentCamera.Camera.ScreenPointToRay(aimPosition);
+            Ray ray = SceneLoader.CurrentCamera.Camera.ScreenPointToRay(CursorManager.GetInGameMousePosition());
             // Move the ray origin along its direction by the distance between the ray origin and the character
             ray.origin = ray.GetPoint(Vector3.Distance(ray.origin, HumanCache.Head.transform.position));
 

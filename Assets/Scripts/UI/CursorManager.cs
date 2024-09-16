@@ -231,17 +231,23 @@ namespace UI
                 Transform crosshairTransform = crosshairImage.transform;
                 if (crosshairTransform.position != mousePosition)
                 {
-                    var cameraMode = ((InGameCamera)SceneLoader.CurrentCamera).CurrentCameraMode;
-                    if (cameraMode == CameraInputMode.TPS || cameraMode == CameraInputMode.FPS)
-                    {
-                        crosshairTransform.position = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
-                    }
-                    else
-                    {
-                        crosshairTransform.position = mousePosition;
-                    }
+                    crosshairTransform.position = GetInGameMousePosition();
                 }
                 _instance._forceNextCrosshairUpdate = false;
+            }
+        }
+
+        public static Vector3 GetInGameMousePosition()
+        {
+            switch (((InGameCamera)SceneLoader.CurrentCamera).CurrentCameraMode)
+            {
+                case CameraInputMode.TPS:
+                case CameraInputMode.FPS:
+                    return new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
+
+                case CameraInputMode.Original:
+                default:
+                    return Input.mousePosition;
             }
         }
     }
