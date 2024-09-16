@@ -234,10 +234,7 @@ namespace UI
                     var cameraMode = ((InGameCamera)SceneLoader.CurrentCamera).CurrentCameraMode;
                     if (cameraMode == CameraInputMode.TPS || cameraMode == CameraInputMode.FPS)
                     {
-                        if (Math.Abs(crosshairTransform.position.x - mousePosition.x) > 1f || Math.Abs(crosshairTransform.position.y - mousePosition.y) > 1f)
-                        {
-                            crosshairTransform.position = mousePosition;
-                        }
+                        crosshairTransform.position = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
                     }
                     else
                     {
